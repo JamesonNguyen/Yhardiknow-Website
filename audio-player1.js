@@ -22,30 +22,30 @@ function calculateCurrentValue_1(currentTime) {
 }
 
 function initProgressBar_1() {
-  var player = document.getElementById('player_1');
-  var length = player.duration;
-  var current_time = player.currentTime;
+  var player_1 = document.getElementById('player_1');
+  var length_1 = player_1.duration;
+  var current_time_1 = player_1.currentTime;
 
   // calculate total length of value
-  var totalLength = calculateTotalValue_1(length);
-  jQuery('.end-time').html(totalLength);
+  var totalLength_1 = calculateTotalValue_1(length_1);
+  jQuery('.end-time').html(totalLength_1);
 
   // calculate current value time
-  var currentTime = calculateCurrentValue_1(current_time);
-  jQuery('.start-time').html(currentTime);
+  var currentTime_1 = calculateCurrentValue_1(current_time_1);
+  jQuery('.start-time').html(currentTime_1);
 
-  var progressbar = document.getElementById('seekObj_1');
-  progressbar.value = player.currentTime / player.duration;
-  progressbar.addEventListener('click', seek_1);
+  var progressbar_1 = document.getElementById('seekObj_1');
+  progressbar_1.value = player_1.currentTime / player_1.duration;
+  progressbar_1.addEventListener('click', seek_1);
 
-  if (player.currentTime == player.duration) {
+  if (player_1.currentTime == player_1.duration) {
     $('#play-btn_1').removeClass('pause');
   }
 
   function seek_1(evt) {
     var percent = evt.offsetX / this.offsetWidth;
-    player.currentTime = percent * player.duration;
-    progressbar.value = percent / 100;
+    player_1.currentTime = percent * player_1.duration;
+    progressbar_1.value = percent / 100;
   }
 }
 
@@ -58,7 +58,7 @@ function initPlayers_1(num) {
       // ----------------------------------------------------------
       // audio embed object
       var playerContainer = document.getElementById('player-container_1'),
-        player = document.getElementById('player_1'),
+        player_1 = document.getElementById('player_1'),
         isPlaying = false,
         playBtn = document.getElementById('play-btn_1');
 
@@ -73,12 +73,12 @@ function initPlayers_1(num) {
       // Controls & Sounds Methods
       // ----------------------------------------------------------
       function togglePlay() {
-        if (player.paused === false) {
-          player.pause();
+        if (player_1.paused === false) {
+          player_1.pause();
           isPlaying = false;
           $('#play-btn_1').removeClass('pause');
         } else {
-          player.play();
+          player_1.play();
           $('#play-btn_1').addClass('pause');
           isPlaying = true;
         }

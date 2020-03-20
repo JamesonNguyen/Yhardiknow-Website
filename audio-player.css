@@ -1,3 +1,8 @@
+@font-face {
+  font-family: marker;
+  src: url(fonts/PermanentMarker-Regular.ttf);
+}
+
 html {
   height: 100%;
   display: table;
@@ -12,7 +17,7 @@ body {
 }
 
 .audio-player {
-  background: white;
+  background: #fffff0;
   border: 1px solid #dfdfdf;
   width: 50vw;
   text-align: center;
@@ -72,4 +77,9 @@ body {
 }
 .audio-player #play-btn_1.pause {
   background-image: url('http://www.lukeduncan.me/images/pause-button.png');
+}
+
+p {
+  font-family: marker;
+  font-size: 10px;
 }
