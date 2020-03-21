@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme = "light">
   <head>
     <title>Yhardiknow | For the homies, By the homies</title>
     <meta charset="utf-8" />
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./audio-player.css" />
 
     <link rel="stylesheet" href="header.css" />
+    <link rel="stylesheet" href="toggle.css" />
     <link rel="stylesheet" type="text/css" href="player.css" />
   </head>
 
@@ -79,6 +80,26 @@
         <div class="album-image" style="background-image: url('images/ep_1.png')"></div>
       </div>
     </center>
+
+    <!-- Light/Dark Mode toggle -->
+    <div class="onoffswitch">
+      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked>
+      <label class="onoffswitch-label" for="myonoffswitch">
+          <span class="onoffswitch-inner"></span>
+          <span class="onoffswitch-switch"></span>
+      </label>
+    </div>
+    <script>
+      var checkbox = document.querySelector('input[name=onoffswitch]'); 
+      checkbox.addEventListener('change',function(){
+        if(this.checked){
+          document.documentElement.setAttribute('data-theme','dark');
+        }
+        else{
+          document.documentElement.setAttribute('data-theme','light'); 
+        }
+      })
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="./audio-player0.js"></script>
