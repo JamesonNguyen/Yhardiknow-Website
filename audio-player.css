@@ -19,6 +19,7 @@ body {
 .audio-player {
   background: #fffff0;
   border: 1px solid #dfdfdf;
+  border-radius: 10px;
   width: 50vw;
   text-align: center;
   display: flex;
@@ -78,8 +79,18 @@ body {
 .audio-player #play-btn_1.pause {
   background-image: url('http://www.lukeduncan.me/images/pause-button.png');
 }
+.audio-player #play-btn_2 {
+  background-image: url('http://www.lukeduncan.me/images/play-button.png');
+  background-size: cover;
+  width: 75px;
+  height: 75px;
+  margin: 2rem 0 2rem 2rem;
+}
+.audio-player #play-btn_2.pause {
+  background-image: url('http://www.lukeduncan.me/images/pause-button.png');
+}
 
 p {
   font-family: marker;
-  font-size: 10px;
+  font-size: 15px;
 }
