@@ -2,111 +2,47 @@
   font-family: over;
   src: url(fonts/segoeuil.ttf);
 }
-
-@font-face {
-  font-family: itis;
-  src: url(fonts/Itim-Regular.ttf);
+.row {
+  display: flex;
+  justify-content: space-around;
 }
 
-html {
-  --bg: white; 
-  --text: black; 
-}
-html[data-theme = 'dark']{
-  --bg: #333333; 
-  --text: #FCFCFCFC; 
+.con {
+  position: relative;
+  width: 22.5vw;
+  height: 22.5vw;
 }
 
-body {
-  background-color: var(--bg);
-  background-repeat: no-repeat;
-  background-size: cover;
-
-}
-
-img.jam {
-  display: inline-block;
-  width: 200px;
-  height: 200px;
-  border-radius: 8px;
-  margin: 20px;
+img.dp {
+  display: block;
+  width: 100%;
   background-repeat: no-repeat;
   background-size: contain;
-}
-
-img.tun {
-  display: inline-block;
-  width: 200px;
-  height: 200px;
   border-radius: 8px;
-  margin: 20px;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-img.rid {
-  display: inline-block;
-  width: 200px;
-  height: 200px;
-  border-radius: 8px;
-  margin: 20px;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-.jcon {
-  position: relative;
-  display: inline-block;
-  width: 200px;
-  height: 200px;
-  margin: 20px;
-}
-
-.tcon {
-  position: relative;
-  display: inline-block;
-  width: 200px;
-  height: 200px;
-  margin: 20px;
-}
-
-.rcon {
-  position: relative;
-  display: inline-block;
-  width: 200px;
-  height: 200px;
-  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .overlay {
   position: absolute;
   top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   height: 100%;
   width: 100%;
   opacity: 0;
   transition: 0.5s ease;
   background-color: #f0e8d6;
   border-radius: 8px;
-  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.jcon:hover .overlay {
-  opacity: 0.8;
-}
-
-.tcon:hover .overlay {
-  opacity: 0.8;
-}
-
-.rcon:hover .overlay {
+.con:hover .overlay {
   opacity: 0.8;
 }
 
 .text {
   color: black;
-  font-size: 35px;
+  font-size: 3vw;
   position: absolute;
   text-align: center;
   top: 50%;
@@ -116,10 +52,25 @@ img.rid {
   font-family: over;
 }
 
-.caption {
-  color: var(--text);
-  font-size: 35px;
-  text-align: center;
-  margin-top: 30px;
-  font-family: itis;
+@media screen and (max-width: 600px) {
+  img.dp {
+    border-radius: 4px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .con {
+    width: 100px;
+    height: 100px;
+  }
+
+  .text {
+    font-size: 15px;
+  }
+
+  .overlay {
+    position: relative;
+    top: -100px;
+    border-radius: 4px;
+  }
 }

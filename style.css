@@ -1,0 +1,38 @@
+@font-face {
+  font-family: itis;
+  src: url(fonts/Itim-Regular.ttf);
+}
+
+html {
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
+  --bg: white;
+  --text: black;
+}
+
+html[data-theme='dark'] {
+  --bg: #333333;
+  --text: #fcfcfcfc;
+}
+
+body {
+  background-color: var(--bg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.caption {
+  color: var(--text);
+  font-size: 35px;
+  text-align: center;
+  margin: 30px 0 30px 0;
+  font-family: itis;
+}
+
+@media screen and (max-width: 600px) {
+  html {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

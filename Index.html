@@ -5,47 +5,60 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+    />
     <link rel="stylesheet" href="./audio-player.css" />
 
-    <link rel="stylesheet" href="header.css" />
-    <link rel="stylesheet" href="toggle.css" />
-    <link rel="stylesheet" type="text/css" href="player.css" />
+    <link rel="stylesheet" type="text/css" href="header.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="toggle.css" />
   </head>
 
   <body>
-    <center>
-      <div class="caption">"it is what it is"</div>
-      <!-- Jameson Icon -->
-      <div class="jcon">
-        <img src="images/jameson.png" alt="Jameson" class="jam" />
+    <div class="caption">"it is what it is"</div>
+
+    <!-- Jameson Icon -->
+    <div class="row">
+      <div class="con" id="jcon">
+        <img src="images/jameson.png" alt="Jameson" class="dp" id="jam" />
         <div class="overlay">
           <div class="text">Jameson "Goggles" Nguyen</div>
         </div>
       </div>
 
       <!-- Tuna Icon -->
-      <div class="tcon">
-        <img src="images/tuna.png" alt="Tuna" class="tun" />
+      <div class="con" id="tcon">
+        <img src="images/tuna.png" alt="Tuna" class="dp" id="tun" />
         <div class="overlay">
           <div class="text">Tunahan "Toonz" Sakar</div>
         </div>
       </div>
 
       <!-- Ridwan Icon -->
-      <div class="rcon">
-        <img src="images/ridwan.png" alt="Ridwan" class="rid" />
+      <div class="con" id="rcon">
+        <img src="images/ridwan.png" alt="Ridwan" class="dp" id="rid" />
         <div class="overlay">
           <div class="text">Ridwan "R1" Howlader</div>
         </div>
       </div>
+    </div>
 
+    <!-- ALL THE PLAYERS ARE BELOW HERE -->
+
+    
+    <div class="episodes">
+    
       <!-- Pilot Episode -->
       <div class="audio-player">
         <div id="play-btn"></div>
         <div class="audio-wrapper" id="player-container" href="javascript:;">
           <audio id="player" ontimeupdate="initProgressBar()">
-            <source src="https://drive.google.com/uc?export=download&id=1-YGtf9crGBypUoB-tFkQHLjlorCukp2v" type="audio/mp3" />
+            <source
+              src="https://drive.google.com/uc?export=download&id=1-YGtf9crGBypUoB-tFkQHLjlorCukp2v"
+              type="audio/mp3"
+            />
             <source src="audio/Ep_p.mp3" type="audio/mp3" />
           </audio>
         </div>
@@ -55,10 +68,19 @@
             <progress id="seekObj" value="0" max="1"></progress>
           </span>
           <br />
-          <small style="float: left; position: relative; left: 15px;" class="start-time"></small>
-          <small style="float: right; position: relative; right: 20px;" class="end-time"></small>
+          <small
+            style="float: left; position: relative; left: 15px;"
+            class="start-time"
+          ></small>
+          <small
+            style="float: right; position: relative; right: 20px;"
+            class="end-time"
+          ></small>
         </div>
-        <div class="album-image" style="background-image: url('images/ep_p.png')"></div>
+        <div
+          class="album-image"
+          style="background-image: url('images/ep_p.png')"
+        ></div>
       </div>
 
       <!-- Episode 1 -->
@@ -66,7 +88,10 @@
         <div id="play-btn_1"></div>
         <div class="audio-wrapper" id="player-container_1" href="javascript:;">
           <audio id="player_1" ontimeupdate="initProgressBar_1()">
-            <source src="https://drive.google.com/uc?export=download&id=18UqauY7Q5hiZM-3NDRNHnY-vm7bRa8eb" type="audio/mp3" />
+            <source
+              src="https://drive.google.com/uc?export=download&id=18UqauY7Q5hiZM-3NDRNHnY-vm7bRa8eb"
+              type="audio/mp3"
+            />
             <source src="audio/Ep_1.mp3" type="audio/mp3" />
           </audio>
         </div>
@@ -76,10 +101,19 @@
             <progress id="seekObj_1" value="0" max="1"></progress>
           </span>
           <br />
-          <small style="float: left; position: relative; left: 15px;" class="start-time_1"></small>
-          <small style="float: right; position: relative; right: 20px;" class="end-time_1"></small>
+          <small
+            style="float: left; position: relative; left: 15px;"
+            class="start-time_1"
+          ></small>
+          <small
+            style="float: right; position: relative; right: 20px;"
+            class="end-time_1"
+          ></small>
         </div>
-        <div class="album-image" style="background-image: url('images/ep_1.png')"></div>
+        <div
+          class="album-image"
+          style="background-image: url('images/ep_1.png')"
+        ></div>
       </div>
 
       <!-- Episode 2 -->
@@ -87,7 +121,10 @@
         <div id="play-btn_2"></div>
         <div class="audio-wrapper" id="player-container_2" href="javascript:;">
           <audio id="player_2" ontimeupdate="initProgressBar_2()">
-            <source src="https://drive.google.com/uc?export=download&id=1EcWo9ChLNGYLdutharHBhXpBQ7gaHk2q" type="audio/mp3" />
+            <source
+              src="https://drive.google.com/uc?export=download&id=1EcWo9ChLNGYLdutharHBhXpBQ7gaHk2q"
+              type="audio/mp3"
+            />
             <source src="audio/Ep_2.mp3" type="audio/mp3" />
           </audio>
         </div>
@@ -97,28 +134,43 @@
             <progress id="seekObj_2" value="0" max="1"></progress>
           </span>
           <br />
-          <small style="float: left; position: relative; left: 15px;" class="start-time_2"></small>
-          <small style="float: right; position: relative; right: 20px;" class="end-time_2"></small>
+          <small
+            style="float: left; position: relative; left: 15px;"
+            class="start-time_2"
+          ></small>
+          <small
+            style="float: right; position: relative; right: 20px;"
+            class="end-time_2"
+          ></small>
         </div>
-        <div class="album-image" style="background-image: url('images/ep_2.png')"></div>
+        <div
+          class="album-image"
+          style="background-image: url('images/ep_2.png')"
+        ></div>
       </div>
-    </center>
+    </div>
 
     <!-- Light/Dark Mode toggle -->
     <div class="onoffswitch">
-      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" unchecked />
+      <input
+        type="checkbox"
+        name="onoffswitch"
+        class="onoffswitch-checkbox"
+        id="myonoffswitch"
+        unchecked
+      />
       <label class="onoffswitch-label" for="myonoffswitch">
         <span class="onoffswitch-inner"></span>
         <span class="onoffswitch-switch"></span>
       </label>
     </div>
     <script>
-      var checkbox = document.querySelector('input[name=onoffswitch]');
-      checkbox.addEventListener('change', function() {
+      var checkbox = document.querySelector("input[name=onoffswitch]");
+      checkbox.addEventListener("change", function() {
         if (this.checked) {
-          document.documentElement.setAttribute('data-theme', 'dark');
+          document.documentElement.setAttribute("data-theme", "dark");
         } else {
-          document.documentElement.setAttribute('data-theme', 'light');
+          document.documentElement.setAttribute("data-theme", "light");
         }
       });
     </script>

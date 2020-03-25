@@ -16,20 +16,25 @@ body {
   background: yellow;
 }
 
+.episodes{
+  margin: 0 auto;
+}
+
 .audio-player {
   background: #fffff0;
   border: 1px solid #dfdfdf;
   border-radius: 10px;
-  width: 50vw;
+  width: 60vw;
   text-align: center;
   display: flex;
   flex-flow: row;
-  margin: 4rem 0 4rem 0;
+  margin: 3em auto;
 }
 .audio-player .album-image {
-  min-height: 100px;
-  width: 110px;
-  background-size: cover;
+  min-height: 12vw;
+  width: 12vw;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .audio-player .player-controls {
   align-items: center;
@@ -38,6 +43,7 @@ body {
   flex: 3;
 }
 .audio-player .player-controls progress {
+  margin-top: 7.5%;
   width: 90%;
 }
 .audio-player .player-controls progress[value] {
@@ -57,40 +63,57 @@ body {
   background-color: blue;
 }
 .audio-player .player-controls p {
-  font-size: 1.6rem;
+  font-size: 2rem;
 }
 .audio-player #play-btn {
-  background-image: url('http://www.lukeduncan.me/images/play-button.png');
+  background-image: url('images/play-button.png');
   background-size: cover;
-  width: 75px;
-  height: 75px;
+  width: 8.5vw;
+  height: 8.5vw;
   margin: 2rem 0 2rem 2rem;
 }
 .audio-player #play-btn.pause {
-  background-image: url('http://www.lukeduncan.me/images/pause-button.png');
+  background-image: url('images/pause-button.png');
 }
 .audio-player #play-btn_1 {
-  background-image: url('http://www.lukeduncan.me/images/play-button.png');
+  background-image: url('images/play-button.png');
   background-size: cover;
-  width: 75px;
-  height: 75px;
+  width: 8.5vw;
+  height: 8.5vw;
   margin: 2rem 0 2rem 2rem;
 }
 .audio-player #play-btn_1.pause {
-  background-image: url('http://www.lukeduncan.me/images/pause-button.png');
+  background-image: url('images/pause-button.png');
 }
 .audio-player #play-btn_2 {
-  background-image: url('http://www.lukeduncan.me/images/play-button.png');
+  background-image: url('images/play-button.png');
   background-size: cover;
-  width: 75px;
-  height: 75px;
+  width: 8.5vw;
+  height: 8.5vw;
   margin: 2rem 0 2rem 2rem;
 }
 .audio-player #play-btn_2.pause {
-  background-image: url('http://www.lukeduncan.me/images/pause-button.png');
+  background-image: url('images/pause-button.png');
 }
 
 p {
   font-family: marker;
-  font-size: 15px;
+}
+@media screen and (max-width: 600px) {
+  .audio-player .player-controls p {
+    font-size: 1rem;
+  }
+  .audio-player {
+    width: 90vw;
+    height: 22.5vw;
+  }
+
+  .audio-player .album-image {
+    min-height: 22.5vw;
+    width: 22.5vw;
+  }
+
+  .audio-player .player-controls progress {
+    margin-top: 0%;
+  }
 }
