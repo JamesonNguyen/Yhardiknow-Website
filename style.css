@@ -1,10 +1,12 @@
 @font-face {
   font-family: itis;
-  src: url(fonts/Itim-Regular.ttf);
+  src: url(fonts/segoeuib.ttf);
 }
 
 html {
   width: 100%;
+  display: table;
+  margin: auto;
   padding-left: 10%;
   padding-right: 10%;
   --bg: white;
@@ -20,6 +22,7 @@ body {
   background-color: var(--bg);
   background-repeat: no-repeat;
   background-size: cover;
+  display: table-cell;
 }
 
 .caption {

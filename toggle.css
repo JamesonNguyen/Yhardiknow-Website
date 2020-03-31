@@ -1,5 +1,6 @@
 .onoffswitch {
     margin-left: 12.5%;
+    margin-top: 2%;
     position: relative; width: 90px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
   }
@@ -48,5 +49,6 @@
   @media screen and (max-width: 600px) {
     .onoffswitch {
       margin-left: 0;
+      margin-top: 5%;
     }
   }

@@ -13,6 +13,11 @@
 
     <link rel="stylesheet" type="text/css" href="header.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <link rel="stylesheet" type="text/css" href="dd_menu.css" />
+    <link rel="stylesheet" type="text/css" href="dd_menu1.css" />
+    <link rel="stylesheet" type="text/css" href="dd_menu2.css" />
+
     <link rel="stylesheet" type="text/css" href="toggle.css" />
   </head>
 
@@ -47,9 +52,7 @@
 
     <!-- ALL THE PLAYERS ARE BELOW HERE -->
 
-    
     <div class="episodes">
-    
       <!-- Pilot Episode -->
       <div class="audio-player">
         <div id="play-btn"></div>
@@ -63,7 +66,7 @@
           </audio>
         </div>
         <div class="player-controls scrubber">
-          <p>Pilot <small>by</small> Yhardiknow</p>
+          <p>Pilot</p>
           <span id="seekObjContainer">
             <progress id="seekObj" value="0" max="1"></progress>
           </span>
@@ -83,6 +86,25 @@
         ></div>
       </div>
 
+      <!-- Pilot Drop Down Description -->
+      <div class="dd_bar">
+        <input type="checkbox" id="dd_button" />
+        <label for="dd_button" class="icon">
+          <div class="dd_button"></div>
+        </label>
+        <nav>
+          <div class="dd_text">
+            Pilot Episode | <small> Recorded on: Sunday, January 5, 2020</small>
+            <p>
+              Your boys Dj Toonz, R1 and Goggles take on the world with first
+              ever episode of the Yhardiknow Podcast. Get to know the homies and
+              hopefully there's going to be many more to come.
+            </p>
+            <br />
+          </div>
+        </nav>
+      </div>
+
       <!-- Episode 1 -->
       <div class="audio-player" id="ep_1">
         <div id="play-btn_1"></div>
@@ -96,7 +118,7 @@
           </audio>
         </div>
         <div class="player-controls scrubber">
-          <p>Episode 1 <small>by</small> Yhardiknow</p>
+          <p>Throwback Thursdays</p>
           <span id="seekObjContainer_1">
             <progress id="seekObj_1" value="0" max="1"></progress>
           </span>
@@ -116,6 +138,24 @@
         ></div>
       </div>
 
+      <!-- Episode 1 Drop Down Description -->
+      <div class="dd_bar">
+        <input type="checkbox" id="dd_button1" />
+        <label for="dd_button1" class="icon">
+          <div class="dd_button1"></div>
+        </label>
+        <nav>
+          <div class="dd_text">
+            Episode 1 | <small>Recorded on: Thursday, January 23, 2020</small>
+            <p>
+              And we're back! Episode 1 kicks off with new segments including
+              PORC (Pop Off On Recent Content) and the Ep. to Ep. challenges.
+              Listen in as we reminisce on our youths when we were yutes.
+            </p>
+          </div>
+        </nav>
+      </div>
+
       <!-- Episode 2 -->
       <div class="audio-player" id="ep_2">
         <div id="play-btn_2"></div>
@@ -129,7 +169,7 @@
           </audio>
         </div>
         <div class="player-controls scrubber">
-          <p>Episode 2 <small>by</small> Yhardiknow</p>
+          <p>Style for Days</p>
           <span id="seekObjContainer_2">
             <progress id="seekObj_2" value="0" max="1"></progress>
           </span>
@@ -148,6 +188,30 @@
           style="background-image: url('images/ep_2.png')"
         ></div>
       </div>
+    </div>
+
+    <!-- Episode 2 Drop Down Description -->
+    <div class="dd_bar">
+      <input type="checkbox" id="dd_button2" />
+      <label for="dd_button2" class="icon">
+        <div class="dd_button2"></div>
+      </label>
+      <nav>
+        <div class="dd_text">
+          Episode 2 | <small>Recorded on: Monday, March 9, 2020</small>
+          <br />
+          <p>
+            *Disclaimer: the PORC segment on COVID-19 was included and discussed
+            much before any of the quarantining measures were enacted. Apologies
+            for discussion points that may sound outdated or irrelevant.
+          </p>
+          <p>
+            We were told not to make an episode on style. We did it anyways.
+            This episode features some tasty PORC, discussions on how much style
+            we didn't have and the much awaited <b>"H"</b>
+          </p>
+        </div>
+      </nav>
     </div>
 
     <!-- Light/Dark Mode toggle -->

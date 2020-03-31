@@ -1,19 +1,6 @@
 @font-face {
-  font-family: marker;
-  src: url(fonts/PermanentMarker-Regular.ttf);
-}
-
-html {
-  height: 100%;
-  display: table;
-  margin: auto;
-}
-
-body {
-  height: 100%;
-  display: table-cell;
-  vertical-align: middle;
-  background: yellow;
+  font-family: PlayerText;
+  src: url(fonts/segoeuil.ttf);
 }
 
 .episodes{
@@ -21,19 +8,19 @@ body {
 }
 
 .audio-player {
-  background: #fffff0;
-  border: 1px solid #dfdfdf;
-  border-radius: 10px;
+  background: white;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
   width: 60vw;
   text-align: center;
   display: flex;
   flex-flow: row;
-  margin: 3em auto;
+  margin: 2.5em auto 0 auto;
 }
 .audio-player .album-image {
   min-height: 12vw;
   width: 12vw;
-  background-size: contain;
+  border-radius: 0 5px 5px 0;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 .audio-player .player-controls {
@@ -63,7 +50,7 @@ body {
   background-color: blue;
 }
 .audio-player .player-controls p {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 .audio-player #play-btn {
   background-image: url('images/play-button.png');
@@ -97,11 +84,12 @@ body {
 }
 
 p {
-  font-family: marker;
+  font-family: PlayerText;
 }
+
 @media screen and (max-width: 600px) {
   .audio-player .player-controls p {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
   .audio-player {
     width: 90vw;

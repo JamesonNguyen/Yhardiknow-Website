@@ -1,0 +1,74 @@
+input#dd_button1 {
+  display: none;
+}
+
+.icon .dd_button1,
+.icon .dd_button1::before,
+.icon .dd_button1::after {
+  background: #9fb1bd;
+  content: "";
+  display: block;
+  height: 2.5px;
+  position: absolute;
+  transition: background ease 0.3s, top ease 0.3s 0.3s, transform ease 0.3s;
+  width: 30px;
+}
+
+.icon:hover .dd_button1,
+.icon:hover .dd_button1::before,
+.icon:hover .dd_button1::after {
+  background: #df352f;
+}
+
+.icon .dd_button1 {
+  left: 21px;
+  top: 30px;
+}
+
+.icon .dd_button1::before {
+  top: -6px;
+}
+
+.icon .dd_button1::after {
+  top: 6px;
+}
+
+#dd_button1:checked + .icon .dd_button1 {
+  background: transparent;
+}
+
+#dd_button1:checked + .icon .dd_button1::before {
+  transform: rotate(45deg);
+}
+
+#dd_button1:checked + .icon .dd_button1::after {
+  transform: rotate(-45deg);
+}
+
+#dd_button1:checked + .icon .dd_button1::before,
+#dd_button1:checked + .icon .dd_button1::after {
+  top: 0;
+  transition: top ease 0.3s, transform ease 0.3s 0.3s;
+}
+
+#dd_button1:checked ~ nav {
+  height: 12vw;
+}
+
+@media screen and (max-width: 600px) {
+  .icon .dd_button1 {
+    left: 14px;
+    top: 21px;
+  }
+
+  .icon .dd_button1,
+  .icon .dd_button1::before,
+  .icon .dd_button1::after {
+    height: 1.75px;
+    width: 20px;
+  }
+
+  #dd_button1:checked ~ nav{ 
+    height: 40vw;
+  }
+}
