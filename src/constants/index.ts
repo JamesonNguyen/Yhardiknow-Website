@@ -1,13 +1,14 @@
 export const breakpoints = {
-    minDesktopOrLaptop: '1024px',
-    minBigScreen: '1921px',
-    maxTablet: '1024px',
-    maxMobile: '480px',
-    maxTabletOrMobile: '1224px',
+  minDesktopOrLaptop: "1024px",
+  minBigScreen: "1921px",
+  maxTablet: "1024px",
+  maxMobile: "480px",
+  maxTabletOrMobile: "1224px",
 };
 
 const config = {
-
+  darkMode: false,
+  backgroundColor: ["#FFFFFF", "#121212"],
 };
 
 export default config;
