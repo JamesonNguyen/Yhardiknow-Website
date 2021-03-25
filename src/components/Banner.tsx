@@ -110,7 +110,7 @@ const StyledName = styled.p`
   font-size: 1rem;
   word-spacing: 300px;
   @media (min-width: ${breakpoints.maxMobile}) {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 
   @media (min-width: ${breakpoints.maxTablet}) {
