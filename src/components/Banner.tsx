@@ -2,6 +2,19 @@ import { breakpoints } from "constants/index";
 import React from "react";
 import styled from "styled-components";
 import useBreakpoints from "hooks/useBreakpoints";
+
+const NameDiv = styled.div`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1s linear;
+  opacity: 0;
+`;
+
 const StyledContainer = styled.header`
   gap: 0;
   width: 100%;
@@ -12,10 +25,19 @@ const StyledContainer = styled.header`
   @media (min-width: ${breakpoints.maxTablet}) {
     margin-top: 3rem;
   }
+
+  &:hover ${NameDiv} {
+    opacity: 1;
+  }
+`;
+const PortraitContainer = styled.div`
+  width: 33.3333%;
+  position: relative;
 `;
 
 const StyledPortrait = styled.img`
-  width: 33.3333%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   opacity: 70%;
 `;
@@ -29,8 +51,10 @@ const StyledTextDiv = styled.section`
   display: flex;
   justify-content: center;
   transition: all 0.5s linear;
+  transition-delay: 0.75s;
   &:hover {
     opacity: 0;
+    transition-delay: 0s;
   }
 `;
 
@@ -80,6 +104,20 @@ const StyledText = styled.p`
   }
 `;
 
+const StyledName = styled.p`
+  font-family: "Roboto Slab";
+  text-align: center;
+  font-size: 1rem;
+  word-spacing: 300px;
+  @media (min-width: ${breakpoints.maxMobile}) {
+    font-size: 1.75rem;
+  }
+
+  @media (min-width: ${breakpoints.maxTablet}) {
+    font-size: 3rem;
+  }
+`;
+
 const StyledImageContainer = styled.div`
   display: flex;
   width: 100%;
@@ -98,15 +136,30 @@ const Banner = () => {
       )}
       {isMobile && <StyledHeader>YHARDIKNOW</StyledHeader>}
       <StyledImageContainer>
-        <StyledPortrait
-          src={`${process.env.PUBLIC_URL}/images/jameson_cropped.jpg`}
-        />
-        <StyledPortrait
-          src={`${process.env.PUBLIC_URL}/images/tuna_cropped.jpg`}
-        />
-        <StyledPortrait
-          src={`${process.env.PUBLIC_URL}/images/ridwan_cropped.jpg`}
-        />
+        <PortraitContainer>
+          <StyledPortrait
+            src={`${process.env.PUBLIC_URL}/images/jameson_cropped.jpg`}
+          />
+          <NameDiv>
+            <StyledName>Jameson "Goggles" Nguyen</StyledName>
+          </NameDiv>
+        </PortraitContainer>
+        <PortraitContainer>
+          <StyledPortrait
+            src={`${process.env.PUBLIC_URL}/images/tuna_cropped.jpg`}
+          />
+          <NameDiv>
+            <StyledName>Tunahan "Toonz" Sakar</StyledName>
+          </NameDiv>
+        </PortraitContainer>
+        <PortraitContainer>
+          <StyledPortrait
+            src={`${process.env.PUBLIC_URL}/images/ridwan_cropped.jpg`}
+          />
+          <NameDiv>
+            <StyledName>Ridwan "R1" Howlader</StyledName>
+          </NameDiv>
+        </PortraitContainer>
       </StyledImageContainer>
       {isMobile && <StyledText>FOR THE HOMIES, BY THE HOMIES</StyledText>}
     </StyledContainer>
