@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import config, { breakpoints } from "constants/index";
 import Banner from "components/Banner";
+import EpisodeCard from "components/EpisodeCard";
+
 const StyledContainer = styled.div`
   color: white;
   width: 100%;
@@ -28,6 +30,7 @@ function App() {
     <StyledBody>
       <StyledContainer>
         <Banner />
+        <EpisodeCard />
       </StyledContainer>
     </StyledBody>
   );

@@ -22,6 +22,7 @@ const StyledContainer = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 2rem;
   @media (min-width: ${breakpoints.maxTablet}) {
     margin-top: 3rem;
   }
@@ -65,7 +66,7 @@ const StyledHeader = styled.p`
   font-size: 2rem;
   letter-spacing: 0.8rem;
   padding-left: 0.8rem;
-
+  color: #121212;
   @media (min-width: ${breakpoints.maxMobile}) {
     font-size: 4rem;
     letter-spacing: 1.4rem;
@@ -73,15 +74,12 @@ const StyledHeader = styled.p`
     line-height: 60px;
     position: absolute;
     top: 55%;
+    color: white;
   }
 
   @media (min-width: ${breakpoints.maxTablet}) {
     font-size: 8rem;
-    letter-spacing: 1.4rem;
-    padding-left: 1.4rem;
     line-height: 110px;
-    position: absolute;
-    top: 55%;
   }
 `;
 
@@ -90,16 +88,17 @@ const StyledText = styled.p`
   font-size: 0.65rem;
   margin: 0;
   margin-top: 0.2rem;
+  color: #121212;
 
   @media (min-width: ${breakpoints.maxMobile}) {
     font-size: 1.75rem;
     position: absolute;
     top: calc(55% + 60px);
+    color: white;
   }
 
   @media (min-width: ${breakpoints.maxTablet}) {
     font-size: 2.75rem;
-    position: absolute;
     top: calc(55% + 110px);
   }
 `;
