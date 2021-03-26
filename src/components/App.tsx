@@ -4,6 +4,7 @@ import config, { breakpoints } from "constants/index";
 import Banner from "components/Banner";
 import EpisodeCard from "components/EpisodeCard";
 import data from "constants/sampleData";
+import Player from "components/Player";
 
 const StyledContainer = styled.div`
   color: #121212;
@@ -44,6 +45,7 @@ function App() {
           ))}
         </Cards>
       </StyledContainer>
+      <Player />
     </StyledBody>
   );
 }
