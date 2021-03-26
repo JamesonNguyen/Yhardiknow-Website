@@ -3,9 +3,10 @@ import styled from "styled-components";
 import config, { breakpoints } from "constants/index";
 import Banner from "components/Banner";
 import EpisodeCard from "components/EpisodeCard";
+import data from "constants/sampleData";
 
 const StyledContainer = styled.div`
-  color: white;
+  color: #121212;
   width: 100%;
   @media (min-width: ${breakpoints.maxMobile}) {
     background-color: ${config.backgroundColor[0]};
@@ -25,12 +26,23 @@ const StyledBody = styled.div`
   }
 `;
 
+const Cards = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2.5rem;
+`;
+
 function App() {
   return (
     <StyledBody>
       <StyledContainer>
         <Banner />
-        <EpisodeCard />
+        <Cards>
+          {data.map((info) => (
+            <EpisodeCard {...info} />
+          ))}
+        </Cards>
       </StyledContainer>
     </StyledBody>
   );

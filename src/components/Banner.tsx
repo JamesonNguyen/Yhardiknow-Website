@@ -11,7 +11,7 @@ const NameDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 1s linear;
+  transition: opacity 0.4s linear;
   opacity: 0;
 `;
 
@@ -22,7 +22,8 @@ const StyledContainer = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2rem;
+  color: white;
+  margin-bottom: 1.5rem;
   @media (min-width: ${breakpoints.maxTablet}) {
     margin-top: 3rem;
   }
@@ -52,7 +53,6 @@ const StyledTextDiv = styled.section`
   display: flex;
   justify-content: center;
   transition: all 0.5s linear;
-  transition-delay: 0.75s;
   &:hover {
     opacity: 0;
     transition-delay: 0s;
