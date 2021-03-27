@@ -84,7 +84,7 @@ const InfoDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0 6px 6px 6px;
+  padding: 6px 6px 6px 6px;
   max-height: 100%;
   overflow: hidden;
   background-color: white;
@@ -95,45 +95,37 @@ const InfoDiv = styled.div`
   }
 
   @media (min-width: ${breakpoints.maxMobile}) {
-    padding: 0 10px 10px 10px;
+    padding: 10px 10px 10px 10px;
   }
 `;
 
 const Description = styled.p`
   text-overflow: ellipsis;
   margin: 0;
-  margin-top: 0.25rem;
+  margin-top: 0.15rem;
   font-family: Roboto;
   font-size: 0.5rem;
   @media (min-width: ${breakpoints.maxMobile}) {
-    font-size: 1rem;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
   }
 
   @media (min-width: ${breakpoints.maxTablet}) {
+    margin-top: 0.35rem;
     font-size: 1rem;
-  }
-`;
-
-const HeaderDiv = styled.div`
-  display: flex;
-  align-items: baseline;
-  margin-top: 0.5rem;
-  @media (min-width: ${breakpoints.maxMobile}) {
-    margin-top: 1rem;
   }
 `;
 
 const Date = styled.p`
   margin: 0;
-  padding-left: 0.5rem;
   font-family: "Roboto Slab";
-  font-size: 0.5rem;
+  font-size: 0.4rem;
   @media (min-width: ${breakpoints.maxMobile}) {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 
   @media (min-width: ${breakpoints.maxTablet}) {
-    font-size: 1rem;
+    font-size: 0.75rem;
   }
 `;
 
@@ -178,10 +170,8 @@ const EpisodeCard: React.FC<Episode> = ({
       </CoverDiv>
 
       <InfoDiv className={isExpanded ? "over" : ""}>
-        <HeaderDiv>
-          <Title>{episodeName}</Title>
-          <Date>{date}</Date>
-        </HeaderDiv>
+        <Title>{episodeName}</Title>
+        <Date>{date}</Date>
         <Description>{description}</Description>
       </InfoDiv>
     </Card>
