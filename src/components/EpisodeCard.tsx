@@ -12,6 +12,7 @@ const CoverDiv = styled.div`
   align-items: center;
   width: 100px;
   height: 100%;
+  background-color: #5e8979;
   @media (min-width: ${breakpoints.maxMobile}) {
     width: 150px;
     height: 100%;
@@ -19,22 +20,10 @@ const CoverDiv = styled.div`
 `;
 
 const PlayIcon = styled.img`
-  width: 18px;
-  height: 18px;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  @media (min-width: ${breakpoints.maxMobile}) {
-    width: 20px;
-    height: 20px;
-    top: 8px;
-    right: 8px;
-  }
+  width: 64px;
+  height: 64px;
   @media (min-width: ${breakpoints.maxTablet}) {
-    width: 64px;
-    height: 64px;
     opacity: 0;
-    position: static;
     transition: opacity 0.25s linear;
   }
 `;
@@ -43,9 +32,13 @@ const StyledEpisodeImage = styled.img`
   height: 96px;
   width: 96px;
   transition: opacity 0.25s linear;
+  opacity: 0.15;
   @media (min-width: ${breakpoints.maxMobile}) {
     height: 146px;
     width: 146px;
+  }
+  @media (min-width: ${breakpoints.maxTablet}) {
+    opacity: 1;
   }
 `;
 
@@ -70,7 +63,7 @@ const Card = styled.div`
       opacity: 1;
     }
     &:hover ${CoverDiv} {
-      background-color: #12121244;
+      background-color: #5e8979;
     }
   }
 `;
@@ -80,12 +73,10 @@ const PlayDiv = styled.div`
   width: 100%;
   position: absolute;
   top: 0;
-  @media (min-width: ${breakpoints.maxTablet}) {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 /* Right side of card */
