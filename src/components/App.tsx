@@ -45,9 +45,8 @@ function App() {
           ))}
         </Cards>
       </StyledContainer>
-      <Player />
     </StyledBody>
   );
 }
-
+//<Player />
 export default App;

@@ -13,7 +13,7 @@ const data: Array<Episode> = [
     audioUrl: "",
     description:
       ' *Disclaimer: the PORC segment on COVID-19 was included and discussed much before any of the quarantining measures were enacted. Apologies for discussion points that may sound outdated or irrelevant. We were told not to make an episode on style. We did it anyways. This episode features some tasty PORC, discussions on how much style we did not have and the much awaited "H" ',
-    episodeName: "Episode Two - Throwback Thursdays",
+    episodeName: "Throwback Thursdays",
     date: "Sunday, January 5th 2020",
     imageUrl: "ep_p.png",
   },
