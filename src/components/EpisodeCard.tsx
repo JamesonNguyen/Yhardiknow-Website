@@ -13,6 +13,7 @@ const CoverDiv = styled.div`
   width: 100px;
   height: 100%;
   background-color: #5e8979;
+  cursor: pointer;
   @media (min-width: ${breakpoints.maxMobile}) {
     width: 150px;
     height: 100%;
@@ -47,10 +48,7 @@ const Card = styled.div`
   width: 100%;
   box-sizing: border-box;
   border: 1px solid #afafaf;
-  border-right: none;
-  border-left: none;
   height: 100px;
-  cursor: pointer;
   @media (min-width: ${breakpoints.maxMobile}) {
     height: 150px;
     border: 1px solid #afafaf;
@@ -152,12 +150,12 @@ const EpisodeCard: React.FC<Episode> = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   return (
-    <Card
-      onClick={() => {
-        setIsExpanded(!isExpanded);
-      }}
-    >
-      <CoverDiv>
+    <Card>
+      <CoverDiv
+        onClick={() => {
+          setIsExpanded(!isExpanded);
+        }}
+      >
         <StyledEpisodeImage
           src={`${process.env.PUBLIC_URL}/images/episodes/${imageUrl}`}
         />
