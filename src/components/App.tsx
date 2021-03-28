@@ -31,7 +31,7 @@ const Cards = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.75rem;
   @media (min-width: ${breakpoints.maxMobile}) {
     gap: 0.5rem;
   }

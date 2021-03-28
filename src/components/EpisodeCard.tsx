@@ -44,6 +44,7 @@ const StyledEpisodeImage = styled.img`
 `;
 
 const Card = styled.div`
+  position: relative;
   display: flex;
   width: 100%;
   box-sizing: border-box;
@@ -63,6 +64,11 @@ const Card = styled.div`
     &:hover ${CoverDiv} {
       background-color: #5e8979;
     }
+  }
+
+  &.over {
+    height: auto;
+    overflow: visible;
   }
 `;
 
@@ -86,23 +92,19 @@ const InfoDiv = styled.div`
   max-height: 100%;
   overflow: hidden;
   background-color: white;
-  &.over {
-    max-height: 300%;
-    height: auto;
-    overflow: visible;
-  }
-
   @media (min-width: ${breakpoints.maxMobile}) {
     padding: 10px 10px 10px 10px;
   }
 `;
 
 const Description = styled.p`
-  text-overflow: ellipsis;
   margin: 0;
   margin-top: 0.15rem;
   font-family: Roboto;
-  font-size: 0.5rem;
+  font-size: 0.75rem;
+  height: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
   @media (min-width: ${breakpoints.maxMobile}) {
     margin-top: 0.25rem;
     font-size: 0.75rem;
@@ -141,6 +143,15 @@ const Title = styled.p`
   }
 `;
 
+const ExpandButton = styled.img`
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.5rem;
+  width: 10px;
+  height: 10px;
+`;
+
 const EpisodeCard: React.FC<Episode> = ({
   episodeName,
   description,
@@ -150,12 +161,8 @@ const EpisodeCard: React.FC<Episode> = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   return (
-    <Card>
-      <CoverDiv
-        onClick={() => {
-          setIsExpanded(!isExpanded);
-        }}
-      >
+    <Card className={isExpanded ? "over" : ""}>
+      <CoverDiv>
         <StyledEpisodeImage
           src={`${process.env.PUBLIC_URL}/images/episodes/${imageUrl}`}
         />
@@ -167,11 +174,19 @@ const EpisodeCard: React.FC<Episode> = ({
         </PlayDiv>
       </CoverDiv>
 
-      <InfoDiv className={isExpanded ? "over" : ""}>
+      <InfoDiv>
         <Title>{episodeName}</Title>
         <Date>{date}</Date>
         <Description>{description}</Description>
       </InfoDiv>
+      <ExpandButton
+        src={`${process.env.PUBLIC_URL}/icons/${
+          !isExpanded ? "down-chevron" : "up-chevron"
+        }.svg`}
+        onClick={() => {
+          setIsExpanded(!isExpanded);
+        }}
+      />
     </Card>
   );
 };
