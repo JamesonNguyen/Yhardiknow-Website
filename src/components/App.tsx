@@ -31,7 +31,10 @@ const Cards = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 0.25rem;
+  @media (min-width: ${breakpoints.maxMobile}) {
+    gap: 0.5rem;
+  }
 `;
 
 function App() {
