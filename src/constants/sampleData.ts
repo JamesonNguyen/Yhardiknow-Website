@@ -12,24 +12,24 @@ const data: Array<Episode> = [
   {
     audioUrl: "",
     description:
-      ' *Disclaimer: the PORC segment on COVID-19 was included and discussed much before any of the quarantining measures were enacted. Apologies for discussion points that may sound outdated or irrelevant. We were told not to make an episode on style. We did it anyways. This episode features some tasty PORC, discussions on how much style we did not have and the much awaited "H" ',
+      "And we're back! Episode 1 kicks off with new segments including PORC (Pop Off On Recent Content) and the Ep. to Ep. challenges. Listen in as we reminisce on our youths when we were yutes.",
     episodeName: "Throwback Thursdays",
-    date: "Sunday, January 5th 2020",
+    date: "Thursday, January 23 2020",
     imageUrl: "ep_1.png",
   },
   {
     audioUrl: "",
     description:
       ' *Disclaimer: the PORC segment on COVID-19 was included and discussed much before any of the quarantining measures were enacted. Apologies for discussion points that may sound outdated or irrelevant. We were told not to make an episode on style. We did it anyways. This episode features some tasty PORC, discussions on how much style we did not have and the much awaited "H" ',
-    episodeName: "Throwback Thursdays",
-    date: "Sunday, January 5th 2020",
+    episodeName: "Style for Days",
+    date: "Monday, March 9 2020",
     imageUrl: "ep_2.png",
   },
   {
     audioUrl: "",
     description:
       ' *Disclaimer: the PORC segment on COVID-19 was included and discussed much before any of the quarantining measures were enacted. Apologies for discussion points that may sound outdated or irrelevant. We were told not to make an episode on style. We did it anyways. This episode features some tasty PORC, discussions on how much style we did not have and the much awaited "H" ',
-    episodeName: "Throwback Thursdays",
+    episodeName: "Style for Days",
     date: "Sunday, January 5th 2020",
     imageUrl: "ep_2.png",
   },

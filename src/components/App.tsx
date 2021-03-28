@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import config, { breakpoints } from "constants/index";
 import Banner from "components/Banner";
 import EpisodeCard from "components/EpisodeCard";
 import data from "constants/sampleData";
 import Player from "components/Player";
+import { Episode } from "types";
 
 const StyledContainer = styled.div`
   color: #121212;
@@ -38,16 +39,18 @@ const Cards = styled.div`
 `;
 
 function App() {
+  const [selectedEp, setSelectedEp] = useState<Episode>();
   return (
     <StyledBody>
       <StyledContainer>
         <Banner />
         <Cards>
           {data.map((info) => (
-            <EpisodeCard {...info} />
+            <EpisodeCard {...{ ...info, setSelectedEp }} />
           ))}
         </Cards>
       </StyledContainer>
+      {selectedEp && <Player episode={selectedEp} />}
     </StyledBody>
   );
 }

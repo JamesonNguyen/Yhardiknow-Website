@@ -171,17 +171,26 @@ const ChevronDiv = styled.div`
   width: 200px;
 `;
 
-const EpisodeCard: React.FC<Episode> = ({
+interface EpisodeCardProps extends Episode {
+  setSelectedEp: (ep: Episode) => void;
+}
+
+const EpisodeCard: React.FC<EpisodeCardProps> = ({
   episodeName,
   description,
   imageUrl,
   audioUrl,
   date,
+  setSelectedEp,
 }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   return (
     <Card className={isExpanded ? "over" : ""}>
-      <CoverDiv>
+      <CoverDiv
+        onClick={() => {
+          setSelectedEp({ episodeName, description, imageUrl, audioUrl, date });
+        }}
+      >
         <StyledEpisodeImage
           src={`${process.env.PUBLIC_URL}/images/episodes/${imageUrl}`}
         />
