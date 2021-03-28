@@ -49,9 +49,10 @@ const Card = styled.div`
   width: 100%;
   box-sizing: border-box;
   border: 1px solid #afafaf;
-  height: 100px;
+  height: auto;
+  max-height: 100px;
   @media (min-width: ${breakpoints.maxMobile}) {
-    height: 150px;
+    max-height: 150px;
     border: 1px solid #afafaf;
   }
   @media (min-width: ${breakpoints.maxTablet}) {
@@ -67,6 +68,7 @@ const Card = styled.div`
   }
 
   &.over {
+    max-height: 300%;
     height: auto;
     overflow: visible;
   }
@@ -144,12 +146,29 @@ const Title = styled.p`
 `;
 
 const ExpandButton = styled.img`
-  position: absolute;
-  top: 0;
-  right: 0;
   margin: 0.5rem;
   width: 10px;
   height: 10px;
+  @media (min-width: ${breakpoints.maxMobile}) {
+    margin: 1rem;
+    width: 16px;
+    height: 16px;
+  }
+  @media (min-width: ${breakpoints.maxTablet}) {
+    margin: 1rem;
+    width: 24px;
+    height: 24px;
+  }
+`;
+
+const ChevronDiv = styled.div`
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: end;
+  width: 200px;
 `;
 
 const EpisodeCard: React.FC<Episode> = ({
@@ -179,14 +198,17 @@ const EpisodeCard: React.FC<Episode> = ({
         <Date>{date}</Date>
         <Description>{description}</Description>
       </InfoDiv>
-      <ExpandButton
-        src={`${process.env.PUBLIC_URL}/icons/${
-          !isExpanded ? "down-chevron" : "up-chevron"
-        }.svg`}
+      <ChevronDiv
         onClick={() => {
           setIsExpanded(!isExpanded);
         }}
-      />
+      >
+        <ExpandButton
+          src={`${process.env.PUBLIC_URL}/icons/${
+            !isExpanded ? "down-chevron" : "up-chevron"
+          }.svg`}
+        />
+      </ChevronDiv>
     </Card>
   );
 };
