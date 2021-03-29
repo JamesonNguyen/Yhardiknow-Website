@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styled from "styled-components";
 import { Episode } from "types";
 import { breakpoints } from "constants/index";
@@ -74,6 +74,7 @@ const ProgressDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 const ControlBar = styled.div`
@@ -145,8 +146,14 @@ const DurationText = styled.p`
   }
 `;
 
+const formatTimers = (time: number) => {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  return `${minutes}:${seconds}`;
+};
+
 const Player: React.FC<AudioProps> = ({ episode }) => {
-  const AudioObject = new Audio(episode.audioUrl);
+  const AudioObject = useMemo(() => new Audio(episode.audioUrl), [episode]);
   const [isHidden, setIsHidden] = useState<boolean>(true);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -161,7 +168,6 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
     }
   };
   AudioObject.addEventListener("timeupdate", () => {
-    console.log((AudioObject.currentTime / AudioObject.duration) * 100);
     setCurrentTime(AudioObject.currentTime);
     setEndTime(AudioObject.duration);
     setCurrentProgress((AudioObject.currentTime / AudioObject.duration) * 100);
@@ -199,9 +205,9 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
           </VolumeContainer>
         </ControlBar>
         <ProgressDiv>
-          <DurationText>{currentTime}</DurationText>
+          <DurationText>{formatTimers(currentTime)}</DurationText>
           <ProgressBar progress={currentProgress} />
-          <DurationText>{endTime}</DurationText>
+          <DurationText>{formatTimers(endTime)}</DurationText>
         </ProgressDiv>
       </StyledDiv>
       <ChevronDiv

@@ -2,7 +2,7 @@ import { Episode } from "types";
 
 const data: Array<Episode> = [
   {
-    audioUrl: "",
+    audioUrl: `${process.env.PUBLIC_URL}/videos/Ep_1.mp3`,
     description:
       "Your boys Dj Toonz, R1 and Goggles take on the world with first ever episode of the Yhardiknow Podcast. Get to know the homies and hopefully there's going to be many more to come. ",
     episodeName: "Pilot Episode",
