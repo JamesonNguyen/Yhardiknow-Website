@@ -170,6 +170,8 @@ const fade = keyframes`
 `;
 const LoadingText = styled.p`
   animation: ${fade} 2s linear infinite;
+  font-family: "Roboto Slab";
+  margin: 0px;
 `;
 
 const formatTimers = (time: number) => {
@@ -252,7 +254,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
               />
               <Title>{episode.episodeName}</Title>
             </div>
-            {isPlaying && !canPlay && <LoadingText>!Loading</LoadingText>}
+            {isPlaying && !canPlay && <LoadingText>Loading Audio</LoadingText>}
             <VolumeContainer>
               <VolumeIcon src={`${process.env.PUBLIC_URL}/icons/volume.svg`} />
               <VolumeSlider
