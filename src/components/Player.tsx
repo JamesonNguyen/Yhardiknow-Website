@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { Episode } from "types";
 import { breakpoints } from "constants/index";
@@ -10,7 +10,7 @@ interface AudioProps {
 const PlayerContainer = styled.div`
   position: sticky;
   bottom: 0;
-  height: 80px;
+  height: 100px;
   width: 100%;
   background-color: white;
   border-top: 1px solid #121212;
@@ -56,7 +56,7 @@ const ChevronDiv = styled.div`
   right: 0;
   display: flex;
   justify-content: end;
-  width: 50%;
+  width: max(5%, 50px);
 `;
 
 const Title = styled.p`
@@ -125,17 +125,20 @@ const VolumeSlider = styled.input`
 
 const ProgressBar = styled.div<{ progress: number }>`
   width: 80%;
-  height: 50px;
+  height: 10px;
+  margin: 0px 5px 0px 5px;
   background: linear-gradient(
     to right,
     #121212 0%,
     #121212 ${(state) => state.progress}%,
-    white ${(state) => state.progress}%,
-    white 100%
+    grey ${(state) => state.progress}%,
+    grey 100%
   );
 `;
 
 const DurationText = styled.p`
+  display: table-cell;
+  vertical-align: middle;
   font-size: 0.5rem;
   margin: 0;
   @media (min-width: ${breakpoints.maxMobile}) {
@@ -148,17 +151,20 @@ const DurationText = styled.p`
 
 const formatTimers = (time: number) => {
   const minutes = Math.floor(time / 60);
-  const seconds = time % 60;
-  return `${minutes}:${seconds}`;
+  const seconds = Math.floor(time % 60);
+  return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 };
 
 const Player: React.FC<AudioProps> = ({ episode }) => {
-  const AudioObject = useMemo(() => new Audio(episode.audioUrl), [episode]);
-  const [isHidden, setIsHidden] = useState<boolean>(true);
+  const [AudioObject, setAudioObject] = useState<HTMLMediaElement>(
+    new Audio(episode.audioUrl)
+  );
+  const [isHidden, setIsHidden] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [endTime, setEndTime] = useState<number>(0);
   const [currentProgress, setCurrentProgress] = useState<number>(0);
+  const [canPlay, setCanPlay] = useState<boolean>(false);
   const Play = () => {
     setIsPlaying(!isPlaying);
     if (isPlaying) {
@@ -172,38 +178,59 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
     setEndTime(AudioObject.duration);
     setCurrentProgress((AudioObject.currentTime / AudioObject.duration) * 100);
   });
+
+  useEffect(() => {
+    AudioObject.pause();
+    setAudioObject(new Audio(episode.audioUrl));
+    setCurrentTime(0);
+    setCurrentProgress(0);
+    setEndTime(0);
+    setIsPlaying(false);
+  }, [episode]);
+
+  useEffect(() => {
+    if (AudioObject.readyState > 3) {
+      setCanPlay(true);
+    } else {
+      setCanPlay(false);
+    }
+  }, [AudioObject.readyState]);
+
   return (
     <PlayerContainer>
       <StyledDiv>
-        <ControlBar>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              marginLeft: "0.5rem",
-            }}
-          >
-            <PlayerIcon
-              src={`${process.env.PUBLIC_URL}/icons/${
-                isPlaying ? "pause" : "play-button"
-              }.svg`}
-              onClick={Play}
-            />
-            <Title>{episode.episodeName}</Title>
-          </div>
-          <VolumeContainer>
-            <VolumeIcon src={`${process.env.PUBLIC_URL}/icons/volume.svg`} />
-            <VolumeSlider
-              type="range"
-              min="0"
-              max="100"
-              onChange={(e) => {
-                AudioObject.volume = Number(e.currentTarget.value) / 100;
+        {!isHidden && (
+          <ControlBar>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                marginLeft: "0.5rem",
               }}
-            />
-          </VolumeContainer>
-        </ControlBar>
+            >
+              <PlayerIcon
+                src={`${process.env.PUBLIC_URL}/icons/${
+                  isPlaying ? "pause" : "play-button"
+                }.svg`}
+                onClick={Play}
+              />
+              <Title>{episode.episodeName}</Title>
+            </div>
+            {isPlaying && !canPlay && <p>!Loading</p>}
+            <VolumeContainer>
+              <VolumeIcon src={`${process.env.PUBLIC_URL}/icons/volume.svg`} />
+              <VolumeSlider
+                type="range"
+                min="0"
+                max="100"
+                onChange={(e) => {
+                  AudioObject.volume = Number(e.currentTarget.value) / 100;
+                }}
+              />
+            </VolumeContainer>
+          </ControlBar>
+        )}
         <ProgressDiv>
           <DurationText>{formatTimers(currentTime)}</DurationText>
           <ProgressBar progress={currentProgress} />
