@@ -28,14 +28,6 @@ const data: Array<Episode> = [
     date: "Monday, March 9 2020",
     imageUrl: "ep_2.png",
   },
-  {
-    audioUrl: `${process.env.PUBLIC_URL}/videos/Ep_2.mp3`,
-    description:
-      ' *Disclaimer: the PORC segment on COVID-19 was included and discussed much before any of the quarantining measures were enacted. Apologies for discussion points that may sound outdated or irrelevant. We were told not to make an episode on style. We did it anyways. This episode features some tasty PORC, discussions on how much style we did not have and the much awaited "H" ',
-    episodeName: "Style for Days",
-    date: "Sunday, January 5th 2020",
-    imageUrl: "ep_2.png",
-  },
 ];
 
 export default data;

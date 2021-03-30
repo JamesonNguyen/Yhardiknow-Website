@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Episode } from "types";
 import { breakpoints } from "constants/index";
 
@@ -157,6 +157,20 @@ const DurationText = styled.p`
     font-size: 1.5rem;
   }
 `;
+const fade = keyframes`
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+`;
+const LoadingText = styled.p`
+  animation: ${fade} 2s linear infinite;
+`;
 
 const formatTimers = (time: number) => {
   const minutes = Math.floor(time / 60);
@@ -195,23 +209,24 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
     setCurrentProgress(0);
     setEndTime(0);
     setIsPlaying(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [episode]);
 
   useEffect(() => {
-    if (AudioObject.readyState > 3) {
+    console.log(AudioObject.readyState, AudioObject.networkState);
+    if (AudioObject.readyState > 2 || AudioObject.networkState !== 2) {
       setCanPlay(true);
     } else {
       setCanPlay(false);
     }
-  }, [AudioObject.readyState]);
+  }, [AudioObject.readyState, AudioObject.networkState]);
 
   const onClickProgress: React.MouseEventHandler<HTMLDivElement> = (event) => {
-    console.log(event);
+    console.log(AudioObject.readyState, AudioObject.networkState);
     event.preventDefault();
     const bounds = event.currentTarget.getBoundingClientRect();
     const x = event.clientX - bounds.left;
     const newProgress = x / (bounds.right - bounds.left);
-    console.log();
     setCurrentProgress(newProgress * endTime);
     AudioObject.currentTime = newProgress * endTime;
   };
@@ -237,7 +252,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
               />
               <Title>{episode.episodeName}</Title>
             </div>
-            {isPlaying && !canPlay && <p>!Loading</p>}
+            {isPlaying && !canPlay && <LoadingText>!Loading</LoadingText>}
             <VolumeContainer>
               <VolumeIcon src={`${process.env.PUBLIC_URL}/icons/volume.svg`} />
               <VolumeSlider
