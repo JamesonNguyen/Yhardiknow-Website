@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Episode } from "types";
 import { breakpoints } from "constants/index";
@@ -17,6 +17,7 @@ const PlayerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: height 0.01s linear;
   &.hidden {
     height: 50px;
   }
@@ -204,6 +205,17 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
     }
   }, [AudioObject.readyState]);
 
+  const onClickProgress: React.MouseEventHandler<HTMLDivElement> = (event) => {
+    console.log(event);
+    event.preventDefault();
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - bounds.left;
+    const newProgress = x / (bounds.right - bounds.left);
+    console.log();
+    setCurrentProgress(newProgress * endTime);
+    AudioObject.currentTime = newProgress * endTime;
+  };
+
   return (
     <PlayerContainer className={isHidden ? "hidden" : ""}>
       <StyledDiv>
@@ -241,7 +253,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
         )}
         <ProgressDiv>
           <DurationText>{formatTimers(currentTime)}</DurationText>
-          <ProgressBar progress={currentProgress} />
+          <ProgressBar progress={currentProgress} onClick={onClickProgress} />
           <DurationText>{formatTimers(endTime)}</DurationText>
         </ProgressDiv>
       </StyledDiv>
