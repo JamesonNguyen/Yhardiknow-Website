@@ -17,8 +17,14 @@ const PlayerContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  &.hidden {
+    height: 50px;
+  }
   @media (min-width: ${breakpoints.maxMobile}) {
     height: 120px;
+    &.hidden {
+      height: 60px;
+    }
   }
 `;
 
@@ -127,6 +133,8 @@ const ProgressBar = styled.div<{ progress: number }>`
   width: 80%;
   height: 10px;
   margin: 0px 5px 0px 5px;
+  border-radius: 5px;
+  margin-top: 3px;
   background: linear-gradient(
     to right,
     #121212 0%,
@@ -197,7 +205,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   }, [AudioObject.readyState]);
 
   return (
-    <PlayerContainer>
+    <PlayerContainer className={isHidden ? "hidden" : ""}>
       <StyledDiv>
         {!isHidden && (
           <ControlBar>

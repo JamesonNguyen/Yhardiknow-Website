@@ -46,7 +46,10 @@ function App() {
         <Banner />
         <Cards>
           {data.map((info) => (
-            <EpisodeCard {...{ ...info, setSelectedEp }} />
+            <EpisodeCard
+              {...{ ...info, setSelectedEp }}
+              key={info.episodeName}
+            />
           ))}
         </Cards>
       </StyledContainer>
