@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { Episode } from "types";
 import { breakpoints } from "constants/index";
@@ -130,19 +130,12 @@ const VolumeSlider = styled.input`
   width: 50%;
 `;
 
-const ProgressBar = styled.div<{ progress: number }>`
+const ProgressBar = styled.input`
   width: 80%;
   height: 10px;
   margin: 0px 5px 0px 5px;
   border-radius: 5px;
   margin-top: 3px;
-  background: linear-gradient(
-    to right,
-    #121212 0%,
-    #121212 ${(state) => state.progress}%,
-    grey ${(state) => state.progress}%,
-    grey 100%
-  );
 `;
 
 const DurationText = styled.p`
@@ -181,57 +174,45 @@ const formatTimers = (time: number) => {
 };
 
 const Player: React.FC<AudioProps> = ({ episode }) => {
-  const [AudioObject, setAudioObject] = useState<HTMLMediaElement>(
-    new Audio(episode.audioUrl)
-  );
+  const AudioObject = useRef<HTMLMediaElement>(new Audio(episode.audioUrl));
   const [isHidden, setIsHidden] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [currentTime, setCurrentTime] = useState<number>(0);
-  const [endTime, setEndTime] = useState<number>(0);
-  const [currentProgress, setCurrentProgress] = useState<number>(0);
-  const [canPlay, setCanPlay] = useState<boolean>(false);
+  const [trackProgress, setTrackProgress] = useState<number>(0);
+  const [volume, setVolume] = useState<number>(50);
+  const { duration } = AudioObject.current;
   const Play = () => {
     setIsPlaying(!isPlaying);
     if (isPlaying) {
-      AudioObject.pause();
+      AudioObject.current.pause();
     } else {
-      AudioObject.play();
+      AudioObject.current.play();
     }
   };
-  AudioObject.addEventListener("timeupdate", () => {
-    setCurrentTime(AudioObject.currentTime);
-    setEndTime(AudioObject.duration);
-    setCurrentProgress((AudioObject.currentTime / AudioObject.duration) * 100);
+
+  const onScrub = (value: number) => {
+    AudioObject.current.currentTime = value;
+    setTrackProgress(AudioObject.current.currentTime);
+  };
+
+  AudioObject.current.addEventListener("timeupdate", () => {
+    if (!AudioObject.current.ended) {
+      setTrackProgress(AudioObject.current.currentTime);
+    }
   });
 
   useEffect(() => {
-    AudioObject.pause();
-    setAudioObject(new Audio(episode.audioUrl));
-    setCurrentTime(0);
-    setCurrentProgress(0);
-    setEndTime(0);
+    AudioObject.current.volume = volume / 100;
+  }, [volume]);
+
+  useEffect(() => {
+    AudioObject.current.pause();
+    AudioObject.current = new Audio(episode.audioUrl);
+    AudioObject.current.load();
+    AudioObject.current.volume = volume / 100;
+    setTrackProgress(0);
     setIsPlaying(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [episode]);
-
-  useEffect(() => {
-    console.log(AudioObject.readyState, AudioObject.networkState);
-    if (AudioObject.readyState > 2 || AudioObject.networkState !== 2) {
-      setCanPlay(true);
-    } else {
-      setCanPlay(false);
-    }
-  }, [AudioObject.readyState, AudioObject.networkState]);
-
-  const onClickProgress: React.MouseEventHandler<HTMLDivElement> = (event) => {
-    console.log(AudioObject.readyState, AudioObject.networkState);
-    event.preventDefault();
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const x = event.clientX - bounds.left;
-    const newProgress = x / (bounds.right - bounds.left);
-    setCurrentProgress(newProgress * endTime);
-    AudioObject.currentTime = newProgress * endTime;
-  };
 
   return (
     <PlayerContainer className={isHidden ? "hidden" : ""}>
@@ -254,7 +235,6 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
               />
               <Title>{episode.episodeName}</Title>
             </div>
-            {isPlaying && !canPlay && <LoadingText>Loading Audio</LoadingText>}
             <VolumeContainer>
               <VolumeIcon src={`${process.env.PUBLIC_URL}/icons/volume.svg`} />
               <VolumeSlider
@@ -262,16 +242,25 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
                 min="0"
                 max="100"
                 onChange={(e) => {
-                  AudioObject.volume = Number(e.currentTarget.value) / 100;
+                  setVolume(Number(e.currentTarget.value));
                 }}
               />
             </VolumeContainer>
           </ControlBar>
         )}
         <ProgressDiv>
-          <DurationText>{formatTimers(currentTime)}</DurationText>
-          <ProgressBar progress={currentProgress} onClick={onClickProgress} />
-          <DurationText>{formatTimers(endTime)}</DurationText>
+          <DurationText>{formatTimers(trackProgress)}</DurationText>
+          <ProgressBar
+            type="range"
+            value={trackProgress}
+            step="1"
+            min="0"
+            max={duration}
+            onChange={(e) => {
+              onScrub(Number(e.currentTarget.value));
+            }}
+          />
+          <DurationText>{formatTimers(duration ? duration : 0)}</DurationText>
         </ProgressDiv>
       </StyledDiv>
       <ChevronDiv
