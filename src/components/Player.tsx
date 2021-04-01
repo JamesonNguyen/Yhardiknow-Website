@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { Episode } from "types";
 import { breakpoints } from "constants/index";
+import ReactHowler from "react-howler";
 
 interface AudioProps {
   episode: Episode;
@@ -106,7 +107,7 @@ const PlayerIcon = styled.img`
 
 const VolumeContainer = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: right;
   align-items: center;
   gap: 0.5rem;
   max-width: 50%;
@@ -174,48 +175,46 @@ const formatTimers = (time: number) => {
 };
 
 const Player: React.FC<AudioProps> = ({ episode }) => {
-  const AudioObject = useRef<HTMLMediaElement>(new Audio(episode.audioUrl));
   const [isHidden, setIsHidden] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const player = useRef<ReactHowler>(null);
   const [trackProgress, setTrackProgress] = useState<number>(0);
   const [volume, setVolume] = useState<number>(50);
-  const { duration } = AudioObject.current;
-  const Play = () => {
-    setIsPlaying(!isPlaying);
-    if (isPlaying) {
-      AudioObject.current.pause();
-    } else {
-      AudioObject.current.play();
-    }
+  const [duration, setDuration] = useState<number>(0);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  useEffect(() => {}, [volume]);
+
+  const onLoad = () => {
+    console.log("loaded");
+    setIsLoaded(true);
+    setTrackProgress(player.current!.seek());
+    setDuration(player.current!.duration());
   };
 
-  const onScrub = (value: number) => {
-    AudioObject.current.currentTime = value;
-    setTrackProgress(AudioObject.current.currentTime);
+  const onLoadError = () => {
+    setError("Ran into an error playing this audio file!");
   };
 
-  AudioObject.current.addEventListener("timeupdate", () => {
-    if (!AudioObject.current.ended) {
-      setTrackProgress(AudioObject.current.currentTime);
-    }
-  });
-
   useEffect(() => {
-    AudioObject.current.volume = volume / 100;
-  }, [volume]);
-
-  useEffect(() => {
-    AudioObject.current.pause();
-    AudioObject.current = new Audio(episode.audioUrl);
-    AudioObject.current.load();
-    AudioObject.current.volume = volume / 100;
+    console.log(player.current);
     setTrackProgress(0);
     setIsPlaying(false);
+    setIsLoaded(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [episode]);
 
   return (
     <PlayerContainer className={isHidden ? "hidden" : ""}>
+      <ReactHowler
+        src={episode.audioUrl}
+        ref={player}
+        playing={isPlaying}
+        html5={true}
+        volume={volume / 100}
+        onLoadError={onLoadError}
+        onLoad={onLoad}
+      />
       <StyledDiv>
         {!isHidden && (
           <ControlBar>
@@ -231,10 +230,15 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
                 src={`${process.env.PUBLIC_URL}/icons/${
                   isPlaying ? "pause" : "play-button"
                 }.svg`}
-                onClick={Play}
+                onClick={() => {
+                  console.log("Playing");
+                  setIsPlaying(!isPlaying);
+                  console.log(player.current);
+                }}
               />
               <Title>{episode.episodeName}</Title>
             </div>
+            {!isLoaded && isPlaying && <LoadingText>Loading...</LoadingText>}
             <VolumeContainer>
               <VolumeIcon src={`${process.env.PUBLIC_URL}/icons/volume.svg`} />
               <VolumeSlider
@@ -252,15 +256,15 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
           <DurationText>{formatTimers(trackProgress)}</DurationText>
           <ProgressBar
             type="range"
-            value={trackProgress}
+            value={player.current ? player.current!.seek() : 0}
             step="1"
             min="0"
             max={duration}
             onChange={(e) => {
-              onScrub(Number(e.currentTarget.value));
+              player.current?.seek(Number(e.currentTarget.value));
             }}
           />
-          <DurationText>{formatTimers(duration ? duration : 0)}</DurationText>
+          <DurationText>{formatTimers(duration)}</DurationText>
         </ProgressDiv>
       </StyledDiv>
       <ChevronDiv
