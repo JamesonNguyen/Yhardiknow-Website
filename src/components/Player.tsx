@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { Episode } from "types";
 import { breakpoints } from "constants/index";
 import ReactHowler from "react-howler";
+import raf from "raf";
 
 interface AudioProps {
   episode: Episode;
@@ -182,6 +183,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   const [volume, setVolume] = useState<number>(50);
   const [duration, setDuration] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isSeeking, setIsSeeking] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   useEffect(() => {}, [volume]);
 
@@ -190,6 +192,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
     setIsLoaded(true);
     setTrackProgress(player.current!.seek());
     setDuration(player.current!.duration());
+    setIsSeeking(true);
   };
 
   const onLoadError = () => {
@@ -201,8 +204,18 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
     setTrackProgress(0);
     setIsPlaying(false);
     setIsLoaded(false);
+    setIsSeeking(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [episode]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isSeeking) {
+        setTrackProgress(player.current!.seek());
+      }
+    }, 1000);
+    return () => clearTimeout(timer);
+  });
 
   return (
     <PlayerContainer className={isHidden ? "hidden" : ""}>
@@ -256,7 +269,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
           <DurationText>{formatTimers(trackProgress)}</DurationText>
           <ProgressBar
             type="range"
-            value={player.current ? player.current!.seek() : 0}
+            value={trackProgress}
             step="1"
             min="0"
             max={duration}
