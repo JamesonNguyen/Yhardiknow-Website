@@ -183,17 +183,11 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   const [volume, setVolume] = useState<number>(50);
   const [duration, setDuration] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
 
   const onLoad = () => {
-    console.log("onLoad");
     setIsLoaded(true);
     setTrackProgress(player.current!.seek());
     setDuration(player.current!.duration());
-  };
-
-  const onLoadError = () => {
-    setError("Ran into an error playing this audio file!");
   };
 
   useEffect(() => {
@@ -204,13 +198,8 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   }, [episode]);
 
   const onEnd = () => {
-    console.log("end");
     setIsPlaying(false);
   };
-  const onPause = () => {
-    console.log("Pause");
-  };
-
   useRaf(() => {
     setTrackProgress(player.current!.seek());
   }, isPlaying && isLoaded);
@@ -223,10 +212,8 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
         playing={isPlaying}
         html5={true}
         volume={volume / 100}
-        onLoadError={onLoadError}
         onLoad={onLoad}
         onEnd={onEnd}
-        onPause={onPause}
       />
       <StyledDiv>
         {!isHidden && (
@@ -250,7 +237,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
               />
               <Title>{episode.episodeName}</Title>
             </div>
-            {!isLoaded && isPlaying && <LoadingText>Loading...</LoadingText>}
+            {<LoadingText>Loading...</LoadingText>}
             <VolumeContainer>
               <VolumeIcon src={`${process.env.PUBLIC_URL}/icons/volume.svg`} />
               <VolumeSlider
