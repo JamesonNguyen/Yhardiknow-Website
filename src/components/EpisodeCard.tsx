@@ -1,4 +1,4 @@
-import { breakpoints } from "constants/index";
+import { breakpoints, styles } from "constants/index";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Episode } from "types";
@@ -23,6 +23,7 @@ const CoverDiv = styled.div`
 const PlayIcon = styled.img`
   width: 64px;
   height: 64px;
+  filter: ${styles.filter};
   @media (min-width: ${breakpoints.maxTablet}) {
     opacity: 0;
     transition: opacity 0.25s linear;
@@ -51,9 +52,9 @@ const Card = styled.div`
   border: 1px solid #afafaf;
   height: auto;
   max-height: 100px;
+  background-color: ${styles.backgroundColor};
   @media (min-width: ${breakpoints.maxMobile}) {
     max-height: 150px;
-    border: 1px solid #afafaf;
   }
   @media (min-width: ${breakpoints.maxTablet}) {
     &:hover ${StyledEpisodeImage} {
@@ -93,7 +94,7 @@ const InfoDiv = styled.div`
   padding: 6px 6px 6px 6px;
   max-height: 100%;
   overflow: hidden;
-  background-color: white;
+  background-color: ${styles.backgroundColor};
   @media (min-width: ${breakpoints.maxMobile}) {
     padding: 10px 10px 10px 10px;
   }

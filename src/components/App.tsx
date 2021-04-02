@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import config, { breakpoints } from "constants/index";
+import { styles, breakpoints } from "constants/index";
 import Banner from "components/Banner";
 import EpisodeCard from "components/EpisodeCard";
 import data from "constants/sampleData";
@@ -8,10 +8,10 @@ import Player from "components/Player";
 import { Episode } from "types";
 
 const StyledContainer = styled.div`
-  color: #121212;
+  color: ${styles.textColor};
   width: 100%;
   @media (min-width: ${breakpoints.maxMobile}) {
-    background-color: ${config.backgroundColor[0]};
+    background-color: ${styles.backgroundColor};
     max-width: 1024px;
   }
 `;
@@ -22,9 +22,9 @@ const StyledBody = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: ${config.backgroundColor[0]};
+  background-color: ${styles.backgroundColor};
   @media (min-width: ${breakpoints.maxMobile}) {
-    background-color: ${config.backgroundColor[0]};
+    background-color: ${styles.backgroundColor};
   }
 `;
 

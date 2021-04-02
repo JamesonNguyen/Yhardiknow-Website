@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Episode } from "types";
-import { breakpoints } from "constants/index";
+import { breakpoints, styles } from "constants/index";
 import ReactHowler from "react-howler";
 import useRaf from "@rooks/use-raf";
 import AudioControls from "components/audioplayer/AudioControls";
@@ -14,8 +14,8 @@ const PlayerContainer = styled.div`
   bottom: 0;
   height: 100px;
   width: 100%;
-  background-color: white;
-  border-top: 1px solid #121212;
+  border-top: 1px solid ${styles.textColor};
+  color: ${styles.textColor};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,7 +35,7 @@ const StyledDiv = styled.div`
   max-width: 1024px;
   width: 100%;
   height: 100%;
-  background-color: white;
+  background-color: ${styles.backgroundColor};
   display: flex;
   flex-direction: column;
   justify-content: center;

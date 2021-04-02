@@ -1,4 +1,4 @@
-import { breakpoints } from "constants/index";
+import { breakpoints, styles } from "constants/index";
 import React from "react";
 import styled from "styled-components";
 import useBreakpoints from "hooks/useBreakpoints";
@@ -13,6 +13,7 @@ const NameDiv = styled.div`
   align-items: center;
   transition: opacity 0.4s linear;
   opacity: 0;
+  color: ${styles.headerColor};
 `;
 
 const StyledContainer = styled.header`
@@ -22,12 +23,10 @@ const StyledContainer = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
   margin-bottom: 1.5rem;
   @media (min-width: ${breakpoints.maxTablet}) {
     margin-top: 3rem;
   }
-
   &:hover ${NameDiv} {
     opacity: 1;
   }
@@ -66,7 +65,7 @@ const StyledHeader = styled.p`
   font-size: 2rem;
   letter-spacing: 0.8rem;
   padding-left: 0.8rem;
-  color: #121212;
+  color: ${styles.textColor};
   @media (min-width: ${breakpoints.maxMobile}) {
     font-size: 4rem;
     letter-spacing: 1.4rem;
@@ -74,7 +73,7 @@ const StyledHeader = styled.p`
     line-height: 60px;
     position: absolute;
     top: 55%;
-    color: white;
+    color: ${styles.headerColor};
   }
 
   @media (min-width: ${breakpoints.maxTablet}) {
@@ -88,13 +87,13 @@ const StyledText = styled.p`
   font-size: 0.65rem;
   margin: 0;
   margin-top: 0.2rem;
-  color: #121212;
+  color: ${styles.textColor};
 
   @media (min-width: ${breakpoints.maxMobile}) {
     font-size: 1.75rem;
     position: absolute;
     top: calc(55% + 60px);
-    color: white;
+    color: ${styles.headerColor};
   }
 
   @media (min-width: ${breakpoints.maxTablet}) {
