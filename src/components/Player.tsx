@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { Episode } from "types";
 import { breakpoints } from "constants/index";
 import ReactHowler from "react-howler";
-import raf from "raf";
+import useRaf from "@rooks/use-raf";
 
 interface AudioProps {
   episode: Episode;
@@ -183,13 +183,10 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   const [volume, setVolume] = useState<number>(50);
   const [duration, setDuration] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [isSeeking, setIsSeeking] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  let __raf: number;
-  useEffect(() => {}, [volume]);
 
   const onLoad = () => {
-    console.log("loaded");
+    console.log("onLoad");
     setIsLoaded(true);
     setTrackProgress(player.current!.seek());
     setDuration(player.current!.duration());
@@ -200,44 +197,23 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   };
 
   useEffect(() => {
-    console.log(player.current);
     setIsPlaying(false);
-    setTrackProgress(0);
     setIsLoaded(false);
-    setIsSeeking(false);
+    setTrackProgress(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [episode]);
 
-  const renderSeekPos = () => {
-    console.log("Call");
-    if (!isSeeking) {
-      setTrackProgress(player.current!.seek());
-    }
-    if (isPlaying) {
-      __raf = raf(renderSeekPos);
-    }
-  };
-  const onPlay = () => {
-    setIsPlaying(true);
-  };
-  const handleOnEnd = () => {
+  const onEnd = () => {
+    console.log("end");
     setIsPlaying(false);
-    clearRAF();
+  };
+  const onPause = () => {
+    console.log("Pause");
   };
 
-  const clearRAF = () => {
-    raf.cancel(__raf);
-  };
-
-  useEffect(() => {
-    return clearRAF();
-  });
-
-  useEffect(() => {
-    if (isPlaying) {
-      renderSeekPos();
-    }
-  }, [isLoaded]);
+  useRaf(() => {
+    setTrackProgress(player.current!.seek());
+  }, isPlaying && isLoaded);
 
   return (
     <PlayerContainer className={isHidden ? "hidden" : ""}>
@@ -248,9 +224,9 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
         html5={true}
         volume={volume / 100}
         onLoadError={onLoadError}
-        onPlay={onPlay}
         onLoad={onLoad}
-        onEnd={handleOnEnd}
+        onEnd={onEnd}
+        onPause={onPause}
       />
       <StyledDiv>
         {!isHidden && (
