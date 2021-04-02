@@ -106,6 +106,29 @@ const PlayerIcon = styled.img`
   }
 `;
 
+const Spin = keyframes`
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+`;
+
+const LoadingIcon = styled.img`
+  width: 32px;
+  height: 32px;
+  animation: ${Spin} 2s linear infinite;
+  @media (min-width: ${breakpoints.maxMobile}) {
+    width: 48px;
+    height: 48px;
+  }
+  @media (min-width: ${breakpoints.maxTablet}) {
+    width: 56px;
+    height: 56px;
+  }
+`;
+
 const VolumeContainer = styled.div`
   display: flex;
   justify-content: right;
@@ -226,15 +249,20 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
                 marginLeft: "0.5rem",
               }}
             >
-              <PlayerIcon
-                src={`${process.env.PUBLIC_URL}/icons/${
-                  isPlaying ? "pause" : "play-button"
-                }.svg`}
-                onClick={() => {
-                  console.log("Playing");
-                  setIsPlaying(!isPlaying);
-                }}
-              />
+              {isPlaying && !isLoaded ? (
+                <LoadingIcon
+                  src={`${process.env.PUBLIC_URL}/icons/loading.svg`}
+                />
+              ) : (
+                <PlayerIcon
+                  src={`${process.env.PUBLIC_URL}/icons/${
+                    isPlaying ? "pause" : "play-button"
+                  }.svg`}
+                  onClick={() => {
+                    setIsPlaying(!isPlaying);
+                  }}
+                />
+              )}
               <Title>{episode.episodeName}</Title>
             </div>
             {<LoadingText>Loading...</LoadingText>}
