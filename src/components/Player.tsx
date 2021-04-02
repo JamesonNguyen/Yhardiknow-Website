@@ -116,7 +116,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
 
   const onLoad = () => {
     setIsLoaded(true);
-    setTrackProgress(player.current!.seek());
+    //setTrackProgress(player.current!.seek());
     setDuration(player.current!.duration());
   };
 
