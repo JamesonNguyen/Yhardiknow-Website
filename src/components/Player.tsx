@@ -161,6 +161,9 @@ const ProgressBar = styled.input`
   margin: 0px 5px 0px 5px;
   border-radius: 5px;
   margin-top: 3px;
+  @media (min-width: ${breakpoints.maxTablet}) {
+    width: 88%;
+  }
 `;
 
 const DurationText = styled.p`
@@ -174,22 +177,6 @@ const DurationText = styled.p`
   @media (min-width: ${breakpoints.maxTablet}) {
     font-size: 1.5rem;
   }
-`;
-const fade = keyframes`
-  0%{
-    opacity: 0;
-  }
-  50%{
-    opacity: 1;
-  }
-  100%{
-    opacity: 0;
-  }
-`;
-const LoadingText = styled.p`
-  animation: ${fade} 2s linear infinite;
-  font-family: "Roboto Slab";
-  margin: 0px;
 `;
 
 const formatTimers = (time: number) => {
@@ -265,7 +252,6 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
               )}
               <Title>{episode.episodeName}</Title>
             </div>
-            {<LoadingText>Loading...</LoadingText>}
             <VolumeContainer>
               <VolumeIcon src={`${process.env.PUBLIC_URL}/icons/volume.svg`} />
               <VolumeSlider
