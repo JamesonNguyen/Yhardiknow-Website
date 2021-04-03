@@ -1,4 +1,4 @@
-import { breakpoints, styles } from "constants/index";
+import { breakpoints } from "constants/index";
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Episode } from "types";
@@ -32,7 +32,7 @@ const ControlBar = styled.div`
 const PlayerIcon = styled.img`
   width: 32px;
   height: 32px;
-  filter: ${styles.filter};
+  filter: ${(props) => props.theme.filter};
   @media (min-width: ${breakpoints.maxMobile}) {
     width: 48px;
     height: 48px;
@@ -56,7 +56,7 @@ const LoadingIcon = styled.img`
   width: 32px;
   height: 32px;
   animation: ${Spin} 2s linear infinite;
-  filter: ${styles.filter};
+  filter: ${(props) => props.theme.filter};
   @media (min-width: ${breakpoints.maxMobile}) {
     width: 48px;
     height: 48px;
@@ -79,7 +79,7 @@ const VolumeContainer = styled.div`
 const VolumeIcon = styled.img`
   width: 16px;
   height: 16px;
-  filter: ${styles.filter};
+  filter: ${(props) => props.theme.filter};
   @media (min-width: ${breakpoints.maxMobile}) {
     width: 24px;
     height: 24px;

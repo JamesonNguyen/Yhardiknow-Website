@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { styles, breakpoints } from "constants/index";
+import styled, { ThemeProvider } from "styled-components";
+import { darkModeConfig, breakpoints, lightModeConfig } from "constants/index";
 import Banner from "components/Banner";
 import EpisodeCard from "components/EpisodeCard";
 import data from "constants/sampleData";
@@ -8,10 +8,10 @@ import Player from "components/Player";
 import { Episode } from "types";
 
 const StyledContainer = styled.div`
-  color: ${styles.textColor};
+  color: ${(props) => props.theme.textColor};
   width: 100%;
   @media (min-width: ${breakpoints.maxMobile}) {
-    background-color: ${styles.backgroundColor};
+    background-color: ${(props) => props.theme.backgroundColor};
     max-width: 1024px;
   }
 `;
@@ -22,9 +22,9 @@ const StyledBody = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: ${styles.backgroundColor};
+  background-color: ${(props) => props.theme.textColor};
   @media (min-width: ${breakpoints.maxMobile}) {
-    background-color: ${styles.backgroundColor};
+    background-color: ${(props) => props.theme.backgroundColor};
   }
 `;
 
@@ -40,21 +40,31 @@ const Cards = styled.div`
 
 function App() {
   const [selectedEp, setSelectedEp] = useState<Episode>();
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   return (
-    <StyledBody>
-      <StyledContainer>
-        <Banner />
-        <Cards>
-          {data.map((info) => (
-            <EpisodeCard
-              {...{ ...info, setSelectedEp }}
-              key={info.episodeName}
-            />
-          ))}
-        </Cards>
-      </StyledContainer>
-      {selectedEp && <Player episode={selectedEp} />}
-    </StyledBody>
+    <ThemeProvider theme={isDarkMode ? darkModeConfig : lightModeConfig}>
+      <StyledBody>
+        <StyledContainer>
+          <Banner />
+          <Cards>
+            {data.map((info) => (
+              <EpisodeCard
+                {...{ ...info, setSelectedEp }}
+                key={info.episodeName}
+              />
+            ))}
+          </Cards>
+          <button
+            onClick={() => {
+              setIsDarkMode(!isDarkMode);
+            }}
+          >
+            test
+          </button>
+        </StyledContainer>
+        {selectedEp && <Player episode={selectedEp} />}
+      </StyledBody>
+    </ThemeProvider>
   );
 }
 //<Player />

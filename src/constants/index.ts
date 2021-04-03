@@ -20,13 +20,4 @@ const lightModeConfig = {
   filter: "",
 };
 
-const darkMode = false;
-const styles = darkMode ? darkModeConfig : lightModeConfig;
-
-const config = {
-  darkMode,
-  styles,
-};
-
-export default config;
-export { styles };
+export { darkModeConfig, lightModeConfig };
