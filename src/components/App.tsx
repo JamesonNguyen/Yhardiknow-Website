@@ -6,6 +6,7 @@ import EpisodeCard from "components/EpisodeCard";
 import data from "constants/sampleData";
 import Player from "components/Player";
 import { Episode } from "types";
+import Switch from "react-switch";
 
 const StyledContainer = styled.div`
   color: ${(props) => props.theme.textColor};
@@ -14,6 +15,14 @@ const StyledContainer = styled.div`
     background-color: ${(props) => props.theme.backgroundColor};
     max-width: 1024px;
   }
+`;
+
+const StyledLabel = styled.label`
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-family: roboto slab;
 `;
 
 const StyledBody = styled.div`
@@ -54,13 +63,15 @@ function App() {
               />
             ))}
           </Cards>
-          <button
-            onClick={() => {
-              setIsDarkMode(!isDarkMode);
-            }}
-          >
-            test
-          </button>
+          <StyledLabel>
+            <span>Dark Mode</span>
+            <Switch
+              checked={isDarkMode}
+              onChange={() => {
+                setIsDarkMode(!isDarkMode);
+              }}
+            />
+          </StyledLabel>
         </StyledContainer>
         {selectedEp && <Player episode={selectedEp} />}
       </StyledBody>
