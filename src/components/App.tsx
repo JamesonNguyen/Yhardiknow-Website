@@ -31,10 +31,7 @@ const StyledBody = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: ${(props) => props.theme.textColor};
-  @media (min-width: ${breakpoints.maxMobile}) {
-    background-color: ${(props) => props.theme.backgroundColor};
-  }
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
 const Cards = styled.div`
