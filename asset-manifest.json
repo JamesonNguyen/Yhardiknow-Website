@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Yhardiknow-Website/static/css/main.3ae0b473.chunk.css",
-    "main.js": "/Yhardiknow-Website/static/js/main.ed31fddb.chunk.js",
-    "main.js.map": "/Yhardiknow-Website/static/js/main.ed31fddb.chunk.js.map",
+    "main.js": "/Yhardiknow-Website/static/js/main.22d659de.chunk.js",
+    "main.js.map": "/Yhardiknow-Website/static/js/main.22d659de.chunk.js.map",
     "runtime-main.js": "/Yhardiknow-Website/static/js/runtime-main.9292fa63.js",
     "runtime-main.js.map": "/Yhardiknow-Website/static/js/runtime-main.9292fa63.js.map",
     "static/js/2.e421e380.chunk.js": "/Yhardiknow-Website/static/js/2.e421e380.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.9292fa63.js",
     "static/js/2.e421e380.chunk.js",
     "static/css/main.3ae0b473.chunk.css",
-    "static/js/main.ed31fddb.chunk.js"
+    "static/js/main.22d659de.chunk.js"
   ]
 }
