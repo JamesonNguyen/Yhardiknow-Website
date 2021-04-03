@@ -114,10 +114,11 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   const [volume, setVolume] = useState<number>(50);
   const [duration, setDuration] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isSeeking, setIsSeeking] = useState<boolean>(false);
 
   const onLoad = () => {
     setIsLoaded(true);
-    //setTrackProgress(player.current!.seek());
+    setTrackProgress(player.current!.seek());
     setDuration(player.current!.duration());
   };
 
@@ -133,7 +134,14 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   };
   useRaf(() => {
     setTrackProgress(player.current!.seek());
-  }, isPlaying && isLoaded);
+  }, isPlaying && isLoaded && !isSeeking);
+
+  useEffect(() => {
+    if (isSeeking) {
+      player.current!.seek(trackProgress);
+      setIsSeeking(false);
+    }
+  }, [isSeeking]);
 
   return (
     <PlayerContainer className={isHidden ? "hidden" : ""}>
@@ -167,7 +175,8 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
             min="0"
             max={duration}
             onChange={(e) => {
-              player.current?.seek(Number(e.currentTarget.value));
+              setTrackProgress(Number(e.currentTarget.value));
+              setIsSeeking(true);
             }}
           />
           <DurationText>{formatTimers(duration)}</DurationText>
