@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Episode } from "types";
 import { breakpoints } from "constants/index";
 import ReactHowler from "react-howler";
 import useRaf from "@rooks/use-raf";
 import AudioControls from "components/audioplayer/AudioControls";
+import { debounce } from "lodash";
 interface AudioProps {
   episode: Episode;
 }
@@ -115,6 +116,14 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   const [duration, setDuration] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [isSeeking, setIsSeeking] = useState<boolean>(false);
+  const debounceSeek = useCallback(
+    debounce((val: number) => {
+      player.current!.seek(val);
+      setIsSeeking(false);
+      console.log("Debounce");
+    }, 1000),
+    []
+  );
 
   const onLoad = () => {
     setIsLoaded(true);
@@ -135,13 +144,6 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   useRaf(() => {
     setTrackProgress(player.current!.seek());
   }, isPlaying && isLoaded && !isSeeking);
-
-  useEffect(() => {
-    if (isSeeking) {
-      player.current!.seek(trackProgress);
-      setIsSeeking(false);
-    }
-  }, [isSeeking]);
 
   return (
     <PlayerContainer className={isHidden ? "hidden" : ""}>
@@ -171,12 +173,13 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
           <ProgressBar
             type="range"
             value={trackProgress}
-            step="1"
+            step="0.1"
             min="0"
             max={duration}
             onChange={(e) => {
               setTrackProgress(Number(e.currentTarget.value));
               setIsSeeking(true);
+              debounceSeek(Number(e.currentTarget.value));
             }}
           />
           <DurationText>{formatTimers(duration)}</DurationText>
