@@ -130,7 +130,8 @@ const AudioControls: React.FC<AudioControlProps> = ({
         <VolumeSlider
           type="range"
           min="0"
-          max="100"
+          step="0.01"
+          max="1"
           onChange={(e) => {
             setVolume(Number(e.currentTarget.value));
           }}
