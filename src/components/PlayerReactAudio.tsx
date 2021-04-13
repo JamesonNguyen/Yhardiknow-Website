@@ -113,6 +113,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   const [duration, setDuration] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [isSeeking, setIsSeeking] = useState<boolean>(false);
+  const [url, setUrl] = useState<string>(episode.audioUrl);
   const player = useRef<ReactPlayer>(null);
 
   const onProgress = (state: any) => {
@@ -136,6 +137,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
     setIsPlaying(false);
     setIsLoaded(false);
     setPlayed(0);
+    setUrl(episode.audioUrl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [episode]);
 
@@ -143,7 +145,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
     <PlayerContainer className={isHidden ? "hidden" : ""}>
       <StyledDiv>
         <ReactPlayer
-          url={episode.audioUrl}
+          url={url}
           height={0}
           volume={volume}
           playing={isPlaying}
