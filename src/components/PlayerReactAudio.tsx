@@ -113,7 +113,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   const [duration, setDuration] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [isSeeking, setIsSeeking] = useState<boolean>(false);
-  const [url, setUrl] = useState<string>(episode.audioUrl);
+  const [url, setUrl] = useState<string | undefined>(episode.audioUrl);
   const player = useRef<ReactPlayer>(null);
 
   const onProgress = (state: any) => {
@@ -134,12 +134,18 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
   };
 
   useEffect(() => {
+    console.log("Pause");
+    setUrl(undefined);
     setIsPlaying(false);
     setIsLoaded(false);
-    setPlayed(0);
-    setUrl(episode.audioUrl);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [episode]);
+
+  useEffect(() => {
+    if (!url && episode.audioUrl) {
+      setUrl(episode.audioUrl);
+    }
+  }, [url]);
 
   return (
     <PlayerContainer className={isHidden ? "hidden" : ""}>
@@ -152,6 +158,7 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
           onProgress={onProgress}
           onReady={() => console.log("onReady")}
           onStart={() => console.log("onStart")}
+          onPause={() => console.log("onPause")}
           onError={(e) => console.log("onError", e)}
           onPlay={() => console.log("onPlay")}
           onDuration={(duration) => {
