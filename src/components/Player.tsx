@@ -1,11 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Episode } from "types";
 import { breakpoints } from "constants/index";
-import ReactHowler from "react-howler";
-import useRaf from "@rooks/use-raf";
 import AudioControls from "components/audioplayer/AudioControls";
-import { debounce } from "lodash";
+import ReactPlayer from "react-player";
 interface AudioProps {
   episode: Episode;
 }
@@ -110,53 +108,76 @@ const formatTimers = (time: number) => {
 const Player: React.FC<AudioProps> = ({ episode }) => {
   const [isHidden, setIsHidden] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const player = useRef<ReactHowler>(null);
-  const [trackProgress, setTrackProgress] = useState<number>(0);
-  const [volume, setVolume] = useState<number>(50);
+  const [played, setPlayed] = useState<number>(0);
+  const [volume, setVolume] = useState<number>(0.5);
   const [duration, setDuration] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [isSeeking, setIsSeeking] = useState<boolean>(false);
-  const debounceSeek = useCallback(
-    debounce((val: number) => {
-      player.current!.seek(val);
-      setIsSeeking(false);
-      console.log("Debounce");
-    }, 1000),
-    []
-  );
+  const [url, setUrl] = useState<string | undefined>(episode.audioUrl);
+  const player = useRef<ReactPlayer>(null);
 
-  const onLoad = () => {
-    setIsLoaded(true);
-    setTrackProgress(player.current!.seek());
-    setDuration(player.current!.duration());
+  const onProgress = (state: any) => {
+    setPlayed(state.playedSeconds);
+  };
+
+  const handleSeekMouseDown = () => {
+    setIsSeeking(true);
+  };
+
+  const handleSeekChange = (e: any) => {
+    setPlayed(parseFloat(e.target.value));
+  };
+
+  const handleSeekMouseUp = (e: any) => {
+    setIsSeeking(false);
+    player.current!.seekTo(parseFloat(e.target.value));
   };
 
   useEffect(() => {
+    console.log("Pause");
+    setUrl(undefined);
     setIsPlaying(false);
     setIsLoaded(false);
-    setTrackProgress(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [episode]);
 
-  const onEnd = () => {
-    setIsPlaying(false);
-  };
-  useRaf(() => {
-    setTrackProgress(player.current!.seek());
-  }, isPlaying && isLoaded && !isSeeking);
+  useEffect(() => {
+    if (!url && episode.audioUrl) {
+      setUrl(episode.audioUrl);
+    }
+  }, [url]);
 
   return (
     <PlayerContainer className={isHidden ? "hidden" : ""}>
-      <ReactHowler
-        src={episode.audioUrl}
-        ref={player}
-        playing={isPlaying}
-        html5={true}
-        volume={volume / 100}
-        onLoad={onLoad}
-        onEnd={onEnd}
-      />
       <StyledDiv>
+        <ReactPlayer
+          url={url}
+          height={0}
+          volume={volume}
+          playing={isPlaying}
+          onProgress={onProgress}
+          onReady={() => console.log("onReady")}
+          onStart={() => console.log("onStart")}
+          onPause={() => console.log("onPause")}
+          onError={(e) => console.log("onError", e)}
+          onPlay={() => console.log("onPlay")}
+          onDuration={(duration) => {
+            setDuration(duration);
+          }}
+          onBuffer={() => {
+            setIsLoaded(true);
+          }}
+          onBufferEnd={() => {
+            setIsLoaded(true);
+          }}
+          ref={player}
+          config={{
+            file: {
+              forceAudio: true,
+            },
+          }}
+          style={{ visibility: "hidden" }}
+        />
         {!isHidden && (
           <AudioControls
             {...{
@@ -169,18 +190,16 @@ const Player: React.FC<AudioProps> = ({ episode }) => {
           />
         )}
         <ProgressDiv>
-          <DurationText>{formatTimers(trackProgress)}</DurationText>
+          <DurationText>{formatTimers(played)}</DurationText>
           <ProgressBar
             type="range"
-            value={trackProgress}
+            value={played}
             step="0.1"
             min="0"
             max={duration}
-            onChange={(e) => {
-              setTrackProgress(Number(e.currentTarget.value));
-              setIsSeeking(true);
-              debounceSeek(Number(e.currentTarget.value));
-            }}
+            onMouseDown={handleSeekMouseDown}
+            onChange={handleSeekChange}
+            onMouseUp={handleSeekMouseUp}
           />
           <DurationText>{formatTimers(duration)}</DurationText>
         </ProgressDiv>

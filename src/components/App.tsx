@@ -4,7 +4,7 @@ import { darkModeConfig, breakpoints, lightModeConfig } from "constants/index";
 import Banner from "components/Banner";
 import EpisodeCard from "components/EpisodeCard";
 import data from "constants/sampleData";
-import Player from "components/PlayerReactAudio";
+import Player from "components/Player";
 import { Episode } from "types";
 import Switch from "react-switch";
 const StyledContainer = styled.div`
