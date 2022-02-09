@@ -35,6 +35,13 @@ const data: Array<Episode> = [
     date: "Monday, March 9 2020",
     imageUrl: "ep_2.png",
   },
+  {
+    audioUrl: `${process.env.PUBLIC_URL}/videos/Ep_4.mp3`,
+    description: "Running it back since the last episode was lost :(",
+    episodeName: "The Runback",
+    date: "Sunday, December 12 2021",
+    imageUrl: "ep_2.png",
+  },
 ];
 
 export default data;
